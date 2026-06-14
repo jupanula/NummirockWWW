@@ -1,0 +1,13 @@
+.DS_Store
+Assets/
+prototype/Assets
+prototype/band-photos/*.png
+!prototype/band-photos/VIDEO_BattleBeast.png
+!prototype/band-photos/VIDEO_BlackVeilBrides.png
+!prototype/band-photos/VIDEO_Gaerea.png
+!prototype/band-photos/VIDEO_GloryHammer.png
+!prototype/band-photos/VIDEO_Moonsorrow.png
+!prototype/band-photos/VIDEO_RiseOfTheNorthstar.png
+!prototype/band-photos/VIDEO_Satyricon.png
+!prototype/band-photos/VIDEO_Stam1na.png
+!prototype/band-photos/VIDEO_SwallowTheSun.png

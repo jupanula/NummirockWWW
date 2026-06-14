@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ohjelma - Nummirock 2026</title>
+  <link rel="stylesheet" href="https://www.nummirock.fi/2017/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anaheim&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <a class="skip-link" href="#main">Siirry sisältöön</a>
+    <header class="site-header">
+      <nav class="site-nav container" aria-label="Päävalikko">
+        <a class="brand-mark" href="index.html">
+          <img src="brand-assets/Nummirock-2026_Logo-kaareva-valkoinen.png" alt="Nummirock">
+          <span class="brand-kicker">17.-20.6.2026</span>
+        </a>
+        <ul class="nav-links" id="site-menu">
+          <li><a href="index.html">Etusivu</a></li>
+          <li><a href="ohjelma.html" aria-current="page">Ohjelma</a></li>
+          <li><a href="index.html#liput">Liput</a></li>
+          <li><a href="info.html">Info</a></li>
+          <li><a href="info.html#saapuminen">Saapuminen</a></li>
+          <li><a href="info.html#majoitus">Majoitus</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="language-link" href="info.html#english">EN</a>
+          <a class="button small accent" href="index.html#liput">Osta liput</a>
+          <button class="menu-toggle" type="button" aria-label="Avaa valikko" aria-controls="site-menu" aria-expanded="false" data-menu-toggle><span></span></button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container">
+          <p class="eyebrow">Päiväkohtainen ohjelma</p>
+          <h1 class="page-title">Ohjelma ja aikataulu</h1>
+          <p class="page-intro">Selaa ohjelmaa lavojen, päivien ja kellonaikojen mukaan. Tarkka aikataulu täydentyy muutosten mukaan.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="schedule-toolbar">
+            <p class="schedule-note">Valitse päivä ja vertaile lavojen ohjelmaa rinnakkain.</p>
+          </div>
+          <div class="running-order" data-running-order>
+            <div class="running-order-days" role="tablist" aria-label="Valitse kalenteripäivä">
+              <button class="running-day" type="button" aria-selected="false" data-running-target="running-ke">Ke 17.6.</button>
+              <button class="running-day" type="button" aria-selected="false" data-running-target="running-to">To 18.6.</button>
+              <button class="running-day" type="button" aria-selected="true" data-running-target="running-pe">Pe 19.6.</button>
+              <button class="running-day" type="button" aria-selected="false" data-running-target="running-la">La 20.6.</button>
+            </div>
+            <div class="running-panels">
+              <section class="running-panel" id="running-ke" hidden>
+                <div class="running-board">
+                  <div class="time-rail"><span>20</span><span>21</span><span>22</span><span>23</span><span>00</span><span>01</span></div>
+                  <div class="stage-lane"><h3>Kaaos Klubi</h3><a class="run-slot" href="#schedule-nummirock-ensemble" style="--row: 1; --span: 1"><time>20:30</time>Nummirock Ensemble</a><a class="run-slot" href="#schedule-riasa" style="--row: 3; --span: 1"><time>22:30</time>Riasa</a><a class="run-slot" href="#schedule-vermilia" style="--row: 5; --span: 1"><time>00:30</time>Vermilia</a></div>
+                  <div class="stage-lane"><h3>Inferno Stage</h3><a class="run-slot" href="#schedule-suotana" style="--row: 2; --span: 1"><time>21:30</time>Suotana</a><a class="run-slot" href="#schedule-ruoska" style="--row: 4; --span: 1"><time>23:30</time>Ruoska</a><a class="run-slot" href="#schedule-barathrum" style="--row: 6; --span: 1"><time>01:30</time>Barathrum</a></div>
+                </div>
+              </section>
+              <section class="running-panel" id="running-to" hidden>
+                <div class="running-board">
+                  <div class="time-rail"><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>00</span><span>01</span><span>02</span></div>
+                  <div class="stage-lane"><h3>Main Stage</h3><a class="run-slot" href="#schedule-and-oceans" style="--row: 1; --span: 1"><time>14:30</time>...And Oceans</a><a class="run-slot" href="#schedule-deathbyromy" style="--row: 3; --span: 1"><time>16:30</time>DeathbyRomy</a><a class="run-slot" href="#schedule-asagraum" style="--row: 6; --span: 1"><time>19:00</time>Asagraum</a><a class="run-slot featured" href="#schedule-swallow-the-sun" style="--row: 8; --span: 1"><time>20:30</time>Swallow the Sun</a><a class="run-slot featured" href="#schedule-satyricon" style="--row: 11; --span: 1"><time>23:45</time>Satyricon</a></div>
+                  <div class="stage-lane"><h3>Inferno Stage</h3><a class="run-slot" href="#schedule-thyrargo" style="--row: 2; --span: 1"><time>15:30</time>Thyrargo</a><a class="run-slot" href="#schedule-grave" style="--row: 4; --span: 1"><time>17:30</time>Grave</a><a class="run-slot featured" href="#schedule-gaerea" style="--row: 9; --span: 1"><time>22:15</time>Gaerea</a><a class="run-slot" href="#schedule-wolfheart" style="--row: 12; --span: 1"><time>01:00</time>Wolfheart</a></div>
+                  <div class="stage-lane"><h3>Kaaos Klubi</h3><a class="run-slot" href="#schedule-slow-fall" style="--row: 5; --span: 1"><time>18:30</time>Slow Fall</a><a class="run-slot" href="#schedule-vahinkolapsi" style="--row: 7; --span: 1"><time>19:45</time>Vahinkolapsi</a><a class="run-slot" href="#schedule-kneel-before-the-death" style="--row: 8; --span: 1"><time>21:30</time>Kneel Before The Death</a><a class="run-slot" href="#schedule-ikina" style="--row: 10; --span: 1"><time>23:00</time>Ikinä</a><a class="run-slot" href="#schedule-tgsobtk" style="--row: 13; --span: 1"><time>02:00</time>TGSOBTK</a></div>
+                </div>
+              </section>
+              <section class="running-panel" id="running-pe">
+                <div class="running-board">
+                  <div class="time-rail"><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>00</span><span>01</span><span>02</span></div>
+                  <div class="stage-lane"><h3>Main Stage</h3><a class="run-slot" href="#schedule-omnium-gatherum" style="--row: 3; --span: 1"><time>14:30</time>Omnium Gatherum</a><a class="run-slot" href="#schedule-immortal-disfigurement" style="--row: 5; --span: 1"><time>16:00</time>Immortal Disfigurement</a><a class="run-slot featured" href="#schedule-moonsorrow" style="--row: 6; --span: 1"><time>17:30</time>Moonsorrow</a><a class="run-slot featured" href="#schedule-stam1na" style="--row: 9; --span: 1"><time>20:30</time>Stam1na</a><a class="run-slot featured" href="#schedule-black-veil-brides" style="--row: 13; --span: 1"><time>24:00</time>Black Veil Brides</a></div>
+                  <div class="stage-lane"><h3>Inferno Stage</h3><a class="run-slot" href="#schedule-decessus" style="--row: 8; --span: 1"><time>19:15</time>Decessus</a><a class="run-slot" href="#schedule-hanging-garden" style="--row: 10; --span: 1"><time>21:45</time>Hanging Garden</a><a class="run-slot" href="#schedule-sepulchral-curse" style="--row: 12; --span: 1"><time>23:15</time>Sepulchral Curse</a></div>
+                  <div class="stage-lane"><h3>Kaaos Klubi</h3><a class="run-slot" href="#schedule-stoned-statues" style="--row: 2; --span: 1"><time>13:30</time>Stoned Statues</a><a class="run-slot" href="#schedule-inborn-tendency" style="--row: 4; --span: 1"><time>15:30</time>Inborn Tendency</a><a class="run-slot" href="#schedule-plaguebreeder" style="--row: 6; --span: 1"><time>17:00</time>Plaguebreeder</a><a class="run-slot" href="#schedule-eartheria" style="--row: 7; --span: 1"><time>18:45</time>Eartheria</a><a class="run-slot" href="#schedule-noiduin" style="--row: 9; --span: 1"><time>20:00</time>Noiduin</a><a class="run-slot" href="#schedule-kaunis-kuolematon" style="--row: 11; --span: 1"><time>22:30</time>Kaunis Kuolematon</a><a class="run-slot" href="#schedule-pikakassa" style="--row: 14; --span: 1"><time>01:15</time>Pikakassa</a></div>
+                  <div class="stage-lane"><h3>Beach</h3><a class="run-slot calm" href="#schedule-rockjooga-pe" style="--row: 1; --span: 1"><time>12:00</time>RockJooga</a><a class="run-slot calm" href="#schedule-krabelibingo" style="--row: 1; --span: 1"><time>12:45</time>Krabelibingo</a></div>
+                </div>
+              </section>
+              <section class="running-panel" id="running-la" hidden>
+                <div class="running-board">
+                  <div class="time-rail"><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>00</span><span>01</span></div>
+                  <div class="stage-lane"><h3>Main Stage</h3><a class="run-slot" href="#schedule-boycott" style="--row: 2; --span: 1"><time>13:30</time>Boycott</a><a class="run-slot" href="#schedule-elakelaiset" style="--row: 3; --span: 1"><time>14:30</time>Eläkeläiset</a><a class="run-slot" href="#schedule-timo-rautiainen" style="--row: 6; --span: 1"><time>17:15</time>Timo Rautiainen</a><a class="run-slot featured" href="#schedule-rise-of-the-northstar" style="--row: 8; --span: 1"><time>19:00</time>Rise of the Northstar</a><a class="run-slot featured" href="#schedule-gloryhammer" style="--row: 9; --span: 1"><time>20:15</time>Gloryhammer</a><a class="run-slot featured" href="#schedule-battle-beast" style="--row: 13; --span: 1"><time>24:00</time>Battle Beast</a></div>
+                  <div class="stage-lane"><h3>Inferno Stage</h3><a class="run-slot" href="#schedule-nyrkkitappelu" style="--row: 5; --span: 1"><time>16:15</time>Nyrkkitappelu</a><a class="run-slot" href="#schedule-lost-society" style="--row: 11; --span: 1"><time>22:00</time>Lost Society</a></div>
+                  <div class="stage-lane"><h3>Kaaos Klubi</h3><a class="run-slot" href="#schedule-kalevauva" style="--row: 1; --span: 1"><time>12:45</time>Kalevauva</a><a class="run-slot" href="#schedule-saa-kiljua" style="--row: 4; --span: 1"><time>15:30</time>Saa Kiljua</a><a class="run-slot" href="#schedule-burlesque-la-1" style="--row: 7; --span: 1"><time>18:30</time>Burlesque</a><a class="run-slot" href="#schedule-psycho-bats" style="--row: 8; --span: 1"><time>19:00</time>Psycho Bats</a><a class="run-slot" href="#schedule-paara" style="--row: 10; --span: 1"><time>21:30</time>Paara</a><a class="run-slot" href="#schedule-awake-again" style="--row: 12; --span: 1"><time>23:00</time>Awake Again</a><a class="run-slot" href="#schedule-stereo-terror" style="--row: 14; --span: 1"><time>01:15</time>Stereo Terror</a></div>
+                  <div class="stage-lane"><h3>Beach</h3><a class="run-slot calm" href="#schedule-rockjooga-la" style="--row: 1; --span: 1"><time>12:00</time>RockJooga</a></div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section invert">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Artistit</h2>
+            <p class="section-copy">Avaa artistin esiintymisaika suoraan aikataulusta.</p>
+          </div>
+          <div class="artist-card-grid">
+            <a class="artist-card" href="#schedule-black-veil-brides"><span class="artist-card-media"><img src="band-photos/VIDEO_BlackVeilBrides.png" alt="Black Veil Brides"></span><span class="artist-card-body"><span class="artist-card-title">Black Veil Brides</span><span class="artist-card-meta"><span>Pe 19.6.</span><span>24:00</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-satyricon"><span class="artist-card-media"><img src="band-photos/VIDEO_Satyricon.png" alt="Satyricon"></span><span class="artist-card-body"><span class="artist-card-title">Satyricon</span><span class="artist-card-meta"><span>To 18.6.</span><span>23:45</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-gloryhammer"><span class="artist-card-media"><img src="band-photos/VIDEO_GloryHammer.png" alt="Gloryhammer"></span><span class="artist-card-body"><span class="artist-card-title">Gloryhammer</span><span class="artist-card-meta"><span>La 20.6.</span><span>20:15</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-battle-beast"><span class="artist-card-media"><img src="band-photos/VIDEO_BattleBeast.png" alt="Battle Beast"></span><span class="artist-card-body"><span class="artist-card-title">Battle Beast</span><span class="artist-card-meta"><span>La 20.6.</span><span>24:00</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-moonsorrow"><span class="artist-card-media"><img src="band-photos/VIDEO_Moonsorrow.png" alt="Moonsorrow"></span><span class="artist-card-body"><span class="artist-card-title">Moonsorrow</span><span class="artist-card-meta"><span>Pe 19.6.</span><span>17:30</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-stam1na"><span class="artist-card-media"><img src="band-photos/VIDEO_Stam1na.png" alt="Stam1na"></span><span class="artist-card-body"><span class="artist-card-title">Stam1na</span><span class="artist-card-meta"><span>Pe 19.6.</span><span>20:30</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-rise-of-the-northstar"><span class="artist-card-media"><img src="band-photos/VIDEO_RiseOfTheNorthstar.png" alt="Rise of the Northstar"></span><span class="artist-card-body"><span class="artist-card-title">Rise of the Northstar</span><span class="artist-card-meta"><span>La 20.6.</span><span>19:00</span><span>Inferno Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-swallow-the-sun"><span class="artist-card-media"><img src="band-photos/VIDEO_SwallowTheSun.png" alt="Swallow the Sun"></span><span class="artist-card-body"><span class="artist-card-title">Swallow the Sun</span><span class="artist-card-meta"><span>To 18.6.</span><span>20:30</span><span>Main Stage</span></span></span></a>
+            <a class="artist-card" href="#schedule-gaerea"><span class="artist-card-media"><img src="band-photos/VIDEO_Gaerea.png" alt="Gaerea"></span><span class="artist-card-body"><span class="artist-card-title">Gaerea</span><span class="artist-card-meta"><span>To 18.6.</span><span>22:15</span><span>Inferno Stage</span></span></span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Nummirock Metal Festival järjestetään Kauhajoen Nummijärvellä 17.-20.6.2026. Copyright © Nummirock 1986-2026.</p>
+        <nav class="footer-links"><a href="index.html">Etusivu</a><a href="info.html">Info</a><a href="https://nummirock.fi/tietosuojaseloste_ja_kaytanto">Tietosuojaseloste ja -käytäntö</a></nav>
+        <div class="footer-social" aria-label="Seuraa Nummirockia">
+          <a href="https://www.facebook.com/Nummirock" aria-label="Facebook"><img src="https://nummirock.fi/2017/images/some-ikonit/facebook.png" alt=""></a>
+          <a href="https://www.tiktok.com/@nummirock" aria-label="TikTok"><img src="https://nummirock.fi/2017/images/some-ikonit/tiktok.png" alt=""></a>
+          <a href="https://instagram.com/nummirock/" aria-label="Instagram"><img src="https://nummirock.fi/2017/images/some-ikonit/instagram.png" alt=""></a>
+          <a href="https://twitter.com/nummirock" aria-label="X"><img src="https://nummirock.fi/2017/images/some-ikonit/twitter.png" alt=""></a>
+          <a href="https://www.youtube.com/c/NummirockFestival" aria-label="YouTube"><img src="https://nummirock.fi/2017/images/some-ikonit/youtube.png" alt=""></a>
+          <a href="http://www.flickr.com/photos/nummirock/sets/" aria-label="Flickr"><img src="https://nummirock.fi/2017/images/some-ikonit/flickr.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="schedule-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Info - Nummirock 2026</title>
+  <link rel="stylesheet" href="https://www.nummirock.fi/2017/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anaheim&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <a class="skip-link" href="#main">Siirry sisältöön</a>
+    <header class="site-header">
+      <nav class="site-nav container" aria-label="Päävalikko">
+        <a class="brand-mark" href="index.html">
+          <img src="brand-assets/Nummirock-2026_Logo-kaareva-valkoinen.png" alt="Nummirock">
+          <span class="brand-kicker">17.-20.6.2026</span>
+        </a>
+        <ul class="nav-links" id="site-menu">
+          <li><a href="index.html">Etusivu</a></li>
+          <li><a href="ohjelma.html">Ohjelma</a></li>
+          <li><a href="index.html#liput">Liput</a></li>
+          <li><a href="info.html" aria-current="page">Info</a></li>
+          <li><a href="#saapuminen">Saapuminen</a></li>
+          <li><a href="#majoitus">Majoitus</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="language-link" href="#english">EN</a>
+          <a class="button small accent" href="index.html#liput">Osta liput</a>
+          <button class="menu-toggle" type="button" aria-label="Avaa valikko" aria-controls="site-menu" aria-expanded="false" data-menu-toggle><span></span></button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container">
+          <p class="eyebrow">Festariohje, saapuminen, majoitus ja palvelut</p>
+          <h1 class="page-title">Info</h1>
+          <p class="page-intro">Kaikki tärkeimmät käytännön asiat yhdessä paikassa: saapuminen, majoitus, palvelut, turvallisuus ja yhteystiedot.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container info-layout">
+          <aside class="info-toc" aria-label="Info-osion linkit">
+            <a href="#saapuminen">Saapuminen</a>
+            <a href="#majoitus">Majoitus</a>
+            <a href="#alue">Alue ja palvelut</a>
+            <a href="#turvallisuus">Turvallisuus</a>
+            <a href="#english">English</a>
+            <a href="#yhteys">Yhteystiedot</a>
+          </aside>
+
+          <div>
+            <section class="info-section" id="saapuminen">
+              <h2>Saapuminen</h2>
+              <p>Nummirock sijaitsee Kauhajoen Nummijärvellä. Osoite navigaattoriin: Nummijärventie 385, 61910 Nummijärvi.</p>
+              <div class="two-col">
+                <article class="info-card">
+                  <p class="panel-kicker">Autolla</p>
+                  <h3 class="panel-title">Pysäköinti ja leiri</h3>
+                  <p class="panel-copy">Leiriytyjät voivat pysäköidä auton leirintäalueelle. Päiväkävijöille on oma pysäköinti tapahtuman läheisyydessä.</p>
+                </article>
+                <article class="info-card">
+                  <p class="panel-kicker">Juna + bussi</p>
+                  <h3 class="panel-title">Seinäjoelta portille</h3>
+                  <p class="panel-copy">Rock-bussit kulkevat Seinäjoen matkakeskukselta Kauhajoen kautta Nummijärvelle.</p>
+                </article>
+              </div>
+              <table class="route-table" aria-label="Esimerkki bussihinnoista">
+                <thead><tr><th>Reitti</th><th>Hinta</th><th>Huomio</th></tr></thead>
+                <tbody>
+                  <tr><td>Kauhajoki - Nummirock</td><td>9 euroa</td><td>Festivaalin aikana</td></tr>
+                  <tr><td>Seinäjoki - Nummirock</td><td>25 euroa</td><td>Matkakeskukselta</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="info-section" id="majoitus">
+              <h2>Majoitus</h2>
+              <p>Leirintä kuuluu useimpiin lippuihin. Majoitusalueelta löytyvät myös sähköpaikat, HeviMajat ja glamping-vaihtoehdot.</p>
+              <div class="accordion" data-accordion>
+                <div class="accordion-item">
+                  <button class="accordion-trigger" type="button" aria-expanded="true" aria-controls="camping">Leirintä</button>
+                  <div class="accordion-content" id="camping">
+                    <p>Leirialue täytetään keskeltä päin, jotta kaikki saapuvat mahtuvat mukaan. Auton voi pysäköidä telttailualueelle lipun ehtojen mukaan.</p>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="glamping">Glamping ja jaettu telttamajoitus</button>
+                  <div class="accordion-content" id="glamping" hidden>
+                    <p>Luksusteltat ja yhteisöllinen telttamajoitus nostetaan erillisinä vaihtoehtoina. Molemmille tarvitaan selkeä varaus-CTA.</p>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="electricity">Sähköpaikat ja HeviMaja</button>
+                  <div class="accordion-content" id="electricity" hidden>
+                    <p>Sähköpaikat ja HeviMajat varataan ennakkoon. Tarkista hinnat ja saatavuus lippukaupasta.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="info-section" id="alue">
+              <h2>Alue ja palvelut</h2>
+              <div class="content-grid">
+                <a class="feature-panel" href="#alue">
+                  <div><span class="panel-kicker">Kartta</span><h3 class="panel-title">Festivaalialue</h3></div>
+                  <p class="panel-copy">Tutustu lavoihin, palveluihin, portteihin ja leirialueisiin.</p>
+                </a>
+                <a class="feature-panel" href="#alue" data-accent="blue">
+                  <div><span class="panel-kicker">K18</span><h3 class="panel-title">NummiKievari</h3></div>
+                  <p class="panel-copy">Premium-lounge omalla sisällöllä ja myyntilinkeillä.</p>
+                </a>
+                <a class="feature-panel" href="#alue" data-accent="purple">
+                  <div><span class="panel-kicker">Ranta</span><h3 class="panel-title">Saunat</h3></div>
+                  <p class="panel-copy">Juoksusauna ja VIP-sauna ovat palvelu, ei piilotettu alasivu.</p>
+                </a>
+              </div>
+            </section>
+
+            <section class="info-section" id="turvallisuus">
+              <h2>Turvallisuus</h2>
+              <p>Nummirock on paikka, jossa jokainen voi nauttia musiikista ja yhteisöstä omana itsenään. Häirinnälle ja syrjinnälle on nollatoleranssi.</p>
+              <div class="accordion" data-accordion>
+                <div class="accordion-item">
+                  <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="safe-space">Turvallisempi tila</button>
+                  <div class="accordion-content" id="safe-space" hidden>
+                    <p>Kunnioita rajoja, älä tee oletuksia ja ilmoita häirinnästä henkilökunnalle matalalla kynnyksellä.</p>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="waste">Jätehuolto</button>
+                  <div class="accordion-content" id="waste" hidden>
+                    <p>Leireille jaetaan jätesäkit. Kierrätyspisteet, pantilliset tölkit ja leirin siisteys nostetaan käytännön ohjeiksi.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="info-section" id="english">
+              <h2>English</h2>
+              <p>Instead of a full duplicate site, English can focus on the pages international visitors need most: tickets, travel, camping, location, safety and contact.</p>
+              <div class="cta-row">
+                <a class="button secondary" href="#saapuminen">Travel info</a>
+                <a class="button secondary" href="index.html#liput">Tickets</a>
+              </div>
+            </section>
+
+            <section class="info-section" id="yhteys">
+              <h2>Yhteystiedot</h2>
+              <table class="simple-table">
+                <tbody>
+                  <tr><th>Info</th><td>+358 (0)50 375 9010, info(ät)nummirock.fi</td></tr>
+                  <tr><th>Osoite</th><td>Nummijärventie 385, 61910 Nummijärvi</td></tr>
+                  <tr><th>Järjestäjä</th><td>Nummijärven Maatalousjärjestö ry</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Nummirock Metal Festival järjestetään Kauhajoen Nummijärvellä 17.-20.6.2026. Copyright © Nummirock 1986-2026.</p>
+        <nav class="footer-links"><a href="index.html">Etusivu</a><a href="ohjelma.html">Ohjelma</a><a href="https://nummirock.fi/tietosuojaseloste_ja_kaytanto">Tietosuojaseloste ja -käytäntö</a></nav>
+        <div class="footer-social" aria-label="Seuraa Nummirockia">
+          <a href="https://www.facebook.com/Nummirock" aria-label="Facebook"><img src="https://nummirock.fi/2017/images/some-ikonit/facebook.png" alt=""></a>
+          <a href="https://www.tiktok.com/@nummirock" aria-label="TikTok"><img src="https://nummirock.fi/2017/images/some-ikonit/tiktok.png" alt=""></a>
+          <a href="https://instagram.com/nummirock/" aria-label="Instagram"><img src="https://nummirock.fi/2017/images/some-ikonit/instagram.png" alt=""></a>
+          <a href="https://twitter.com/nummirock" aria-label="X"><img src="https://nummirock.fi/2017/images/some-ikonit/twitter.png" alt=""></a>
+          <a href="https://www.youtube.com/c/NummirockFestival" aria-label="YouTube"><img src="https://nummirock.fi/2017/images/some-ikonit/youtube.png" alt=""></a>
+          <a href="http://www.flickr.com/photos/nummirock/sets/" aria-label="Flickr"><img src="https://nummirock.fi/2017/images/some-ikonit/flickr.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
