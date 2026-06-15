@@ -55,6 +55,7 @@ const renderRunningPanel = (day) => {
     .map((item) => [item.stageName, item])).values()];
   const minMinutes = Math.floor(Math.min(...items.map((item) => item.sortMinutes)) / 60) * 60;
   const maxMinutes = Math.ceil(Math.max(...items.map((item) => item.endSortMinutes)) / 60) * 60;
+  const trackStyle = `--stage-count: ${stages.length}; --stage-track-width: ${stages.length * 84}vw;`;
 
   return `
     <section class="running-panel" id="running-${day.key}">
@@ -62,8 +63,8 @@ const renderRunningPanel = (day) => {
         <h2>${escapeHtml(day.title)}</h2>
       </div>
       <div class="running-calendar" style="--board-minutes: ${maxMinutes - minMinutes};">
-        <div class="stage-head-scroll" aria-hidden="true">
-          <div class="stage-track stage-track-head" style="--stage-count: ${stages.length};">
+        <div class="stage-head-scroll" aria-label="${escapeHtml(day.title)} lavat">
+          <div class="stage-track stage-track-head" style="${trackStyle}">
             ${stages.map((stage) => `
               <div class="stage-head">
                 <h3>${renderStageHeader(stage.stageName)}</h3>
@@ -72,7 +73,7 @@ const renderRunningPanel = (day) => {
           </div>
         </div>
         <div class="stage-scroll stage-body-scroll" aria-label="${escapeHtml(day.title)} aikataulu">
-          <div class="stage-track stage-track-body" style="--stage-count: ${stages.length};">
+          <div class="stage-track stage-track-body" style="${trackStyle}">
             ${stages.map((stage) => `
               <div class="stage-lane">
                 <div class="stage-lane-body">
@@ -97,7 +98,7 @@ const renderDayNav = (days) => `
   </nav>
 `;
 
-const initStageHeaderSync = () => {
+const initStageScrollSync = () => {
   document.querySelectorAll(".running-calendar").forEach((calendar) => {
     const header = calendar.querySelector(".stage-head-scroll");
     const body = calendar.querySelector(".stage-body-scroll");
@@ -115,6 +116,51 @@ const initStageHeaderSync = () => {
 
     header.addEventListener("scroll", () => sync(header, body), { passive: true });
     body.addEventListener("scroll", () => sync(body, header), { passive: true });
+  });
+};
+
+const initStageDragScroll = () => {
+  document.querySelectorAll(".stage-scroll, .stage-head-scroll").forEach((scroller) => {
+    let startX = 0;
+    let startY = 0;
+    let startScroll = 0;
+    let dragging = false;
+
+    scroller.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      startX = event.clientX;
+      startY = event.clientY;
+      startScroll = scroller.scrollLeft;
+      dragging = false;
+      scroller.setPointerCapture(event.pointerId);
+    });
+
+    scroller.addEventListener("pointermove", (event) => {
+      if (!scroller.hasPointerCapture(event.pointerId)) return;
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      if (!dragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        dragging = true;
+        scroller.classList.add("is-dragging");
+      }
+
+      if (!dragging) return;
+      event.preventDefault();
+      scroller.scrollLeft = startScroll - deltaX;
+    });
+
+    const stopDragging = (event) => {
+      if (scroller.hasPointerCapture(event.pointerId)) {
+        scroller.releasePointerCapture(event.pointerId);
+      }
+      dragging = false;
+      scroller.classList.remove("is-dragging");
+    };
+
+    scroller.addEventListener("pointerup", stopDragging);
+    scroller.addEventListener("pointercancel", stopDragging);
   });
 };
 
@@ -195,7 +241,8 @@ const initCountdown = () => {
 
 renderScheduleFromData();
 initCountdown();
-initStageHeaderSync();
+initStageScrollSync();
+initStageDragScroll();
 
 const centerStageInCalendar = (target) => {
   const stageScroll = target.closest(".stage-scroll");

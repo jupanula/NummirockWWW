@@ -84,7 +84,6 @@ select {
 
 .site-shell {
   min-height: 100vh;
-  overflow: clip;
 }
 
 .container {
@@ -973,7 +972,7 @@ select {
   --schedule-day-nav-height: 72px;
   --schedule-day-heading-height: 76px;
   --schedule-stage-head-height: 66px;
-  --stage-col-width: 1fr;
+  --stage-col-width: minmax(0, 1fr);
   margin: 0 0 34px;
 }
 
@@ -1047,6 +1046,9 @@ select {
 
 .running-calendar {
   --minute-size: 1.74px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid var(--color-line);
   background:
     linear-gradient(135deg, rgba(92, 173, 236, 0.08), transparent 36%),
@@ -1063,31 +1065,30 @@ select {
   min-height: calc(var(--board-minutes) * var(--minute-size));
 }
 
-.stage-scroll {
+.stage-scroll,
+.stage-head-scroll {
+  display: block;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  overflow-x: auto;
-  overflow-y: visible;
+  contain: inline-size;
+  overflow-x: scroll;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   background: var(--color-line);
+}
+
+.stage-scroll {
+  scroll-snap-type: x proximity;
 }
 
 .stage-head-scroll {
   position: sticky;
   top: calc(var(--nav-height) + var(--schedule-day-nav-height) + var(--schedule-day-heading-height));
   z-index: 4;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  background: var(--color-line);
 }
 
 .stage-head-scroll::-webkit-scrollbar,
@@ -1095,17 +1096,19 @@ select {
   display: none;
 }
 
+.stage-head-scroll.is-dragging,
+.stage-scroll.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .stage-track {
   display: grid;
-  grid-template-columns: repeat(var(--stage-count), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--stage-count), var(--stage-col-width));
   gap: 1px;
   width: 100%;
   min-width: 100%;
   background: var(--color-line);
-}
-
-.stage-track-body {
-  align-items: stretch;
 }
 
 .stage-head {
@@ -1663,23 +1666,12 @@ select {
 
 @media (max-width: 1024px) {
   .running-order {
-    --stage-col-width: clamp(284px, 78vw, 360px);
-  }
-
-  .stage-scroll {
-    overflow-x: scroll;
+    --stage-col-width: 82vw;
   }
 
   .stage-track {
-    display: inline-flex;
-    width: max-content;
-    min-width: max-content;
-  }
-
-  .stage-head,
-  .stage-lane {
-    width: var(--stage-col-width);
-    flex: 0 0 var(--stage-col-width);
+    width: var(--stage-track-width);
+    min-width: var(--stage-track-width);
   }
 }
 
@@ -1774,7 +1766,7 @@ select {
     --schedule-day-nav-height: 72px;
     --schedule-day-heading-height: 58px;
     --schedule-stage-head-height: 48px;
-    --stage-col-width: 78vw;
+    --stage-col-width: 84vw;
   }
 
   .running-order-days {
@@ -1792,21 +1784,6 @@ select {
     --minute-size: 1.58px;
     margin-right: calc(var(--gutter) * -1);
     border-right: 0;
-  }
-
-  .stage-scroll {
-    overflow-x: scroll;
-  }
-
-  .stage-track {
-    display: inline-flex;
-    width: auto;
-    min-width: max-content;
-  }
-
-  .stage-lane {
-    width: var(--stage-col-width);
-    flex: 0 0 var(--stage-col-width);
   }
 
   .stage-head {
