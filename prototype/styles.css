@@ -1066,27 +1066,14 @@ select {
 .stage-scroll {
   min-width: 0;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.stage-head-scroll {
-  position: sticky;
-  top: calc(var(--nav-height) + var(--schedule-day-nav-height) + var(--schedule-day-heading-height));
-  z-index: 4;
-  min-width: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   background: var(--color-line);
 }
 
-.stage-head-scroll::-webkit-scrollbar,
 .stage-scroll::-webkit-scrollbar {
   display: none;
 }
@@ -1099,15 +1086,13 @@ select {
   background: var(--color-line);
 }
 
-.stage-track-body {
-  align-items: stretch;
-}
-
 .stage-head {
-  flex: 0 0 var(--stage-col-width);
-  min-width: 0;
+  position: sticky;
+  top: calc(var(--nav-height) + var(--schedule-day-nav-height) + var(--schedule-day-heading-height));
+  z-index: 4;
   display: grid;
   place-items: center;
+  min-height: var(--schedule-stage-head-height);
   padding: 10px 14px;
   background: #000;
 }
@@ -1133,6 +1118,8 @@ select {
 .stage-lane {
   flex: 0 0 var(--stage-col-width);
   min-width: 0;
+  display: grid;
+  grid-template-rows: var(--schedule-stage-head-height) calc(var(--board-minutes) * var(--minute-size));
   scroll-snap-align: start;
   background:
     repeating-linear-gradient(

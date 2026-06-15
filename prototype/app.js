@@ -62,19 +62,13 @@ const renderRunningPanel = (day) => {
         <h2>${escapeHtml(day.title)}</h2>
       </div>
       <div class="running-calendar" style="--board-minutes: ${maxMinutes - minMinutes};">
-        <div class="stage-head-scroll" aria-label="${escapeHtml(day.title)} lavat">
-          <div class="stage-track stage-track-head" style="--stage-count: ${stages.length};">
-            ${stages.map((stage) => `
-              <div class="stage-head">
-                <h3>${renderStageHeader(stage.stageName)}</h3>
-              </div>
-            `).join("")}
-          </div>
-        </div>
-        <div class="stage-scroll stage-body-scroll" aria-label="${escapeHtml(day.title)} aikataulu">
-          <div class="stage-track stage-track-body" style="--stage-count: ${stages.length};">
+        <div class="stage-scroll" aria-label="${escapeHtml(day.title)} aikataulu">
+          <div class="stage-track" style="--stage-count: ${stages.length};">
             ${stages.map((stage) => `
               <div class="stage-lane">
+                <div class="stage-head">
+                  <h3>${renderStageHeader(stage.stageName)}</h3>
+                </div>
                 <div class="stage-lane-body">
                   ${items.filter((item) => item.stageName === stage.stageName).map((item) => renderRunSlot(item, minMinutes)).join("")}
                 </div>
@@ -96,27 +90,6 @@ const renderDayNav = (days) => `
     `).join("")}
   </nav>
 `;
-
-const initStageScrollSync = () => {
-  document.querySelectorAll(".running-calendar").forEach((calendar) => {
-    const head = calendar.querySelector(".stage-head-scroll");
-    const body = calendar.querySelector(".stage-body-scroll");
-    if (!head || !body) return;
-
-    let syncing = false;
-    const sync = (source, target) => {
-      if (syncing) return;
-      syncing = true;
-      target.scrollLeft = source.scrollLeft;
-      window.requestAnimationFrame(() => {
-        syncing = false;
-      });
-    };
-
-    head.addEventListener("scroll", () => sync(head, body), { passive: true });
-    body.addEventListener("scroll", () => sync(body, head), { passive: true });
-  });
-};
 
 const renderScheduleFromData = () => {
   if (!window.NR_SCHEDULE) return;
@@ -195,7 +168,6 @@ const initCountdown = () => {
 
 renderScheduleFromData();
 initCountdown();
-initStageScrollSync();
 
 const centerStageInCalendar = (target) => {
   const stageScroll = target.closest(".stage-scroll");
