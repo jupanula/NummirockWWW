@@ -970,105 +970,170 @@ select {
 }
 
 .running-order {
+  --schedule-day-nav-height: 72px;
+  --schedule-day-heading-height: 76px;
+  --schedule-stage-head-height: 66px;
+  --stage-col-width: clamp(292px, 24vw, 360px);
   margin: 0 0 34px;
 }
 
 .running-order-days {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(4px, 1vw, 8px);
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 6;
+  margin-bottom: 22px;
+  padding: 10px 0;
+  background: var(--color-black);
 }
 
 .running-day {
   min-height: 52px;
-  padding: 11px 18px 8px;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: 11px clamp(6px, 1.6vw, 18px) 8px;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background: transparent;
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: clamp(18px, 2vw, 30px);
   line-height: 1;
+  text-decoration: none;
   text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.running-day[aria-selected="true"] {
+.running-day[aria-selected="true"],
+.running-day[aria-current="true"] {
   background: var(--color-white);
   color: var(--color-black);
 }
 
-.running-panel[hidden] {
-  display: none;
+.running-panels {
+  display: grid;
+  gap: clamp(34px, 6vw, 78px);
 }
 
-.running-panels {
+.running-panel {
+  scroll-margin-top: calc(var(--nav-height) + var(--schedule-day-nav-height) + 12px);
+}
+
+.running-panel-heading {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--schedule-day-nav-height));
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  min-height: var(--schedule-day-heading-height);
+  margin: 0;
+  padding: 10px 0 8px;
+  background: var(--color-black);
+}
+
+.running-panel-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: 0.85;
+  text-transform: uppercase;
+  transform: scaleX(0.88);
+  transform-origin: left center;
+}
+
+.running-calendar {
+  --minute-size: 1.74px;
+  border: 1px solid var(--color-line);
   background:
     linear-gradient(135deg, rgba(92, 173, 236, 0.08), transparent 36%),
     #050505;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: none;
-}
-
-.running-panels::-webkit-scrollbar {
-  display: none;
-}
-
-.running-board {
-  --minute-size: 2.22px;
-  display: grid;
-  grid-template-columns: 64px repeat(var(--stage-count), minmax(300px, 1fr));
-  gap: 1px;
-  min-width: max(980px, calc(64px + var(--stage-count) * 300px));
-  background: var(--color-line);
-}
-
-.time-rail,
-.stage-lane {
-  display: grid;
-  grid-template-rows: 74px calc(var(--board-minutes) * var(--minute-size));
-  background: #060606;
-}
-
-.time-rail {
-  color: var(--color-muted);
-  font-family: var(--font-display);
-  font-size: 18px;
-  text-align: center;
+  overflow: visible;
 }
 
 .stage-head {
-  min-height: 74px;
+  min-height: var(--schedule-stage-head-height);
 }
 
-.time-rail-body,
 .stage-lane-body {
   position: relative;
   min-height: calc(var(--board-minutes) * var(--minute-size));
 }
 
-.time-rail-body {
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(60 * var(--minute-size) - 1px),
-      rgba(255, 255, 255, 0.12) calc(60 * var(--minute-size))
-    );
+.stage-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.time-rail-body span {
-  position: absolute;
-  top: calc(var(--start) * var(--minute-size));
-  left: 0;
-  right: 0;
-  transform: translateY(-0.48em);
-  color: var(--color-muted);
+.stage-head-scroll {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--schedule-day-nav-height) + var(--schedule-day-heading-height));
+  z-index: 4;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  background: var(--color-line);
+}
+
+.stage-head-scroll::-webkit-scrollbar,
+.stage-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.stage-track {
+  display: flex;
+  gap: 1px;
+  width: max-content;
+  min-width: 100%;
+  background: var(--color-line);
+}
+
+.stage-track-body {
+  align-items: stretch;
+}
+
+.stage-head {
+  flex: 0 0 var(--stage-col-width);
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  padding: 10px 14px;
+  background: #000;
+}
+
+.stage-head h3 {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.stage-head img {
+  width: auto;
+  max-width: 245px;
+  max-height: 50px;
+  object-fit: contain;
 }
 
 .stage-lane {
+  flex: 0 0 var(--stage-col-width);
+  min-width: 0;
+  scroll-snap-align: start;
   background:
     repeating-linear-gradient(
       to bottom,
@@ -1078,45 +1143,23 @@ select {
     );
 }
 
-.stage-lane h3 {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  margin: 0;
-  display: grid;
-  place-items: center;
-  padding: 10px 14px;
-  background: #000;
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 22px;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.stage-lane h3 img {
-  width: auto;
-  max-width: 245px;
-  max-height: 50px;
-  object-fit: contain;
-}
-
 .run-slot {
   position: absolute;
   top: calc(var(--start) * var(--minute-size));
   left: 8px;
   right: 8px;
-  min-height: 96px;
+  min-height: 82px;
   height: calc(var(--duration) * var(--minute-size));
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4px;
-  padding: 9px 11px;
+  gap: 0;
+  padding: 8px 11px;
   border: 1px solid rgba(92, 173, 236, 0.55);
   background: rgba(92, 173, 236, 0.16);
   color: var(--color-white);
   text-decoration: none;
+  cursor: default;
   overflow: hidden;
 }
 
@@ -1133,14 +1176,14 @@ select {
 .run-slot time {
   color: var(--color-blue);
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.4vw, 34px);
-  line-height: 1;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 0.9;
 }
 
 .run-slot span {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(34px, 3vw, 46px);
+  font-size: clamp(31px, 2.7vw, 43px);
   line-height: 0.86;
   text-transform: uppercase;
   transform: scaleX(0.9);
@@ -1702,65 +1745,53 @@ select {
     font-size: clamp(42px, 13vw, 64px);
   }
 
-  .running-panels {
-    overflow: visible;
-    background: transparent;
+  .running-order {
+    --schedule-day-nav-height: 72px;
+    --schedule-day-heading-height: 58px;
+    --schedule-stage-head-height: 48px;
+    --stage-col-width: 78vw;
   }
 
-  .running-board {
-    display: block;
-    min-width: 0;
-    background: transparent;
+  .running-order-days {
+    gap: 4px;
   }
 
-  .time-rail {
-    display: none;
+  .running-day {
+    min-height: 48px;
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: clamp(17px, 4.7vw, 24px);
   }
 
-  .stage-lane {
-    display: block;
-    margin-bottom: 20px;
-    border: 1px solid var(--color-line);
-    background: #050505;
+  .running-calendar {
+    --minute-size: 1.58px;
+    margin-right: calc(var(--gutter) * -1);
+    border-right: 0;
   }
 
-  .stage-lane h3 {
-    position: static;
-    min-height: 68px;
-    border-bottom: 1px solid var(--color-line);
+  .stage-head {
+    padding: 6px 10px;
   }
 
-  .stage-lane h3 img {
-    max-width: min(280px, 82vw);
-    max-height: 48px;
-  }
-
-  .stage-lane-body {
-    min-height: 0;
-    display: grid;
-    gap: 10px;
-    padding: 10px;
+  .stage-head img {
+    max-width: 176px;
+    max-height: 34px;
   }
 
   .run-slot {
-    position: static;
-    min-height: 94px;
-    height: auto;
-    left: auto;
-    right: auto;
-    display: grid;
-    justify-content: start;
-    gap: 8px;
-    padding: 14px;
-    overflow: visible;
+    min-height: 68px;
+    left: 7px;
+    right: 7px;
+    padding: 7px 10px;
   }
 
   .run-slot time {
-    font-size: clamp(25px, 7.6vw, 34px);
+    font-size: 24px;
+    line-height: 0.9;
   }
 
   .run-slot span {
-    font-size: clamp(36px, 11vw, 52px);
+    font-size: clamp(27px, 8.5vw, 38px);
   }
 
   .quick-link {

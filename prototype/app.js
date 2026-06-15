@@ -30,8 +30,6 @@ const escapeHtml = (value) =>
     "'": "&#39;",
   }[char]));
 
-const formatHour = (minutes) => String(Math.floor((minutes % 1440) / 60)).padStart(2, "0");
-
 const renderStageHeader = (stageName) => {
   const logo = stageLogos[stageName];
   if (!logo) return `<span>${escapeHtml(stageName)}</span>`;
@@ -42,14 +40,14 @@ const renderRunSlot = (item, minMinutes) => {
   const duration = Math.max(30, item.endSortMinutes - item.sortMinutes);
   const isFeatured = ["Main Stage", "Inferno Stage"].includes(item.stageName) && item.type === "band";
   return `
-    <a class="run-slot${isFeatured ? " featured" : ""}" id="${item.id}" href="#${item.id}" style="--start: ${item.sortMinutes - minMinutes}; --duration: ${duration};">
+    <div class="run-slot${isFeatured ? " featured" : ""}" id="${item.id}" style="--start: ${item.sortMinutes - minMinutes}; --duration: ${duration};">
       <time>${escapeHtml(item.startTime)}</time>
       <span>${escapeHtml(item.name)}</span>
-    </a>
+    </div>
   `;
 };
 
-const renderRunningPanel = (day, selectedKey) => {
+const renderRunningPanel = (day) => {
   const items = day.items.slice().sort((a, b) => a.sortMinutes - b.sortMinutes || a.stageOrder - b.stageOrder);
   const stages = [...new Map(items
     .slice()
@@ -57,30 +55,67 @@ const renderRunningPanel = (day, selectedKey) => {
     .map((item) => [item.stageName, item])).values()];
   const minMinutes = Math.floor(Math.min(...items.map((item) => item.sortMinutes)) / 60) * 60;
   const maxMinutes = Math.ceil(Math.max(...items.map((item) => item.endSortMinutes)) / 60) * 60;
-  const markers = [];
-
-  for (let minute = minMinutes; minute <= maxMinutes; minute += 60) {
-    markers.push(`<span style="--start: ${minute - minMinutes};">${formatHour(minute)}</span>`);
-  }
 
   return `
-    <section class="running-panel" id="running-${day.key}"${day.key === selectedKey ? "" : " hidden"}>
-      <div class="running-board" style="--stage-count: ${stages.length}; --board-minutes: ${maxMinutes - minMinutes};">
-        <div class="time-rail">
-          <div class="stage-head" aria-hidden="true"></div>
-          <div class="time-rail-body">${markers.join("")}</div>
-        </div>
-        ${stages.map((stage) => `
-          <div class="stage-lane">
-            <h3 class="stage-head">${renderStageHeader(stage.stageName)}</h3>
-            <div class="stage-lane-body">
-              ${items.filter((item) => item.stageName === stage.stageName).map((item) => renderRunSlot(item, minMinutes)).join("")}
-            </div>
+    <section class="running-panel" id="running-${day.key}">
+      <div class="running-panel-heading">
+        <h2>${escapeHtml(day.title)}</h2>
+      </div>
+      <div class="running-calendar" style="--board-minutes: ${maxMinutes - minMinutes};">
+        <div class="stage-head-scroll" aria-label="${escapeHtml(day.title)} lavat">
+          <div class="stage-track stage-track-head" style="--stage-count: ${stages.length};">
+            ${stages.map((stage) => `
+              <div class="stage-head">
+                <h3>${renderStageHeader(stage.stageName)}</h3>
+              </div>
+            `).join("")}
           </div>
-        `).join("")}
+        </div>
+        <div class="stage-scroll stage-body-scroll" aria-label="${escapeHtml(day.title)} aikataulu">
+          <div class="stage-track stage-track-body" style="--stage-count: ${stages.length};">
+            ${stages.map((stage) => `
+              <div class="stage-lane">
+                <div class="stage-lane-body">
+                  ${items.filter((item) => item.stageName === stage.stageName).map((item) => renderRunSlot(item, minMinutes)).join("")}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
       </div>
     </section>
   `;
+};
+
+const renderDayNav = (days) => `
+  <nav class="running-order-days" aria-label="Valitse ohjelmapäivä">
+    ${days.map((day) => `
+      <a class="running-day" href="#running-${day.key}">
+        <span>${escapeHtml(day.label)}</span>
+      </a>
+    `).join("")}
+  </nav>
+`;
+
+const initStageScrollSync = () => {
+  document.querySelectorAll(".running-calendar").forEach((calendar) => {
+    const head = calendar.querySelector(".stage-head-scroll");
+    const body = calendar.querySelector(".stage-body-scroll");
+    if (!head || !body) return;
+
+    let syncing = false;
+    const sync = (source, target) => {
+      if (syncing) return;
+      syncing = true;
+      target.scrollLeft = source.scrollLeft;
+      window.requestAnimationFrame(() => {
+        syncing = false;
+      });
+    };
+
+    head.addEventListener("scroll", () => sync(head, body), { passive: true });
+    body.addEventListener("scroll", () => sync(body, head), { passive: true });
+  });
 };
 
 const renderScheduleFromData = () => {
@@ -100,15 +135,9 @@ const renderScheduleFromData = () => {
   const runningOrder = document.querySelector("[data-running-order]");
   if (runningOrder) {
     runningOrder.innerHTML = `
-      <div class="running-order-days" role="tablist" aria-label="Valitse kalenteripäivä">
-        ${days.map((day) => `
-          <button class="running-day" type="button" aria-selected="${day.key === days[0].key}" data-running-target="running-${day.key}">
-            ${escapeHtml(day.label)}
-          </button>
-        `).join("")}
-      </div>
+      ${renderDayNav(days)}
       <div class="running-panels">
-        ${days.map((day) => renderRunningPanel(day, days[0].key)).join("")}
+        ${days.map((day) => renderRunningPanel(day)).join("")}
       </div>
     `;
   }
@@ -166,22 +195,32 @@ const initCountdown = () => {
 
 renderScheduleFromData();
 initCountdown();
+initStageScrollSync();
 
-document.querySelectorAll("[data-running-order]").forEach((runningOrder) => {
-  const buttons = [...runningOrder.querySelectorAll("[data-running-target]")];
-  const panels = buttons
-    .map((button) => document.getElementById(button.getAttribute("data-running-target")))
-    .filter(Boolean);
+const centerStageInCalendar = (target) => {
+  const stageScroll = target.closest(".stage-scroll");
+  const stageLane = target.closest(".stage-lane");
+  if (!stageScroll || !stageLane) return;
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      buttons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
-      panels.forEach((panel) => {
-        panel.hidden = panel.id !== button.getAttribute("data-running-target");
-      });
-    });
+  stageScroll.scrollTo({
+    left: Math.max(0, stageLane.offsetLeft - 72),
+    behavior: "smooth",
   });
-});
+};
+
+const updateActiveDayLink = () => {
+  const panels = [...document.querySelectorAll(".running-panel")];
+  if (!panels.length) return;
+
+  const activePanel = panels.reduce((closest, panel) => {
+    const distance = Math.abs(panel.getBoundingClientRect().top - 130);
+    return !closest || distance < closest.distance ? { panel, distance } : closest;
+  }, null);
+
+  document.querySelectorAll(".running-day").forEach((link) => {
+    link.setAttribute("aria-current", String(link.hash.slice(1) === activePanel?.panel.id));
+  });
+};
 
 const highlightScheduleTarget = () => {
   const targetId = decodeURIComponent(window.location.hash.slice(1));
@@ -190,27 +229,25 @@ const highlightScheduleTarget = () => {
   const target = document.getElementById(targetId);
   if (!target) return;
 
-  const runningPanel = target.closest(".running-panel");
-  if (runningPanel && runningPanel.hidden) {
-    const runningButton = document.querySelector(`[data-running-target="${runningPanel.id}"]`);
-    if (runningButton) runningButton.click();
-  }
-
   window.requestAnimationFrame(() => {
     document.querySelectorAll(".schedule-row.is-highlighted, .run-slot.is-highlighted").forEach((row) => {
       row.classList.remove("is-highlighted");
     });
 
+    centerStageInCalendar(target);
     target.classList.remove("is-highlighted");
     void target.offsetWidth;
     target.classList.add("is-highlighted");
     const scrollTarget = target.firstElementChild || target;
     scrollTarget.scrollIntoView({ behavior: "smooth", block: "center" });
+    updateActiveDayLink();
   });
 };
 
 window.addEventListener("hashchange", highlightScheduleTarget);
 window.addEventListener("load", highlightScheduleTarget);
+window.addEventListener("load", updateActiveDayLink);
+window.addEventListener("scroll", updateActiveDayLink, { passive: true });
 
 document.querySelectorAll('a[href^="#schedule-"]').forEach((link) => {
   link.addEventListener("click", () => {
