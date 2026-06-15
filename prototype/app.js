@@ -119,51 +119,6 @@ const initStageScrollSync = () => {
   });
 };
 
-const initStageDragScroll = () => {
-  document.querySelectorAll(".stage-scroll, .stage-head-scroll").forEach((scroller) => {
-    let startX = 0;
-    let startY = 0;
-    let startScroll = 0;
-    let dragging = false;
-
-    scroller.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      startX = event.clientX;
-      startY = event.clientY;
-      startScroll = scroller.scrollLeft;
-      dragging = false;
-      scroller.setPointerCapture(event.pointerId);
-    });
-
-    scroller.addEventListener("pointermove", (event) => {
-      if (!scroller.hasPointerCapture(event.pointerId)) return;
-
-      const deltaX = event.clientX - startX;
-      const deltaY = event.clientY - startY;
-
-      if (!dragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
-        dragging = true;
-        scroller.classList.add("is-dragging");
-      }
-
-      if (!dragging) return;
-      event.preventDefault();
-      scroller.scrollLeft = startScroll - deltaX;
-    });
-
-    const stopDragging = (event) => {
-      if (scroller.hasPointerCapture(event.pointerId)) {
-        scroller.releasePointerCapture(event.pointerId);
-      }
-      dragging = false;
-      scroller.classList.remove("is-dragging");
-    };
-
-    scroller.addEventListener("pointerup", stopDragging);
-    scroller.addEventListener("pointercancel", stopDragging);
-  });
-};
-
 const renderScheduleFromData = () => {
   if (!window.NR_SCHEDULE) return;
 
@@ -242,7 +197,6 @@ const initCountdown = () => {
 renderScheduleFromData();
 initCountdown();
 initStageScrollSync();
-initStageDragScroll();
 
 const centerStageInCalendar = (target) => {
   const stageScroll = target.closest(".stage-scroll");

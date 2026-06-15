@@ -1075,14 +1075,11 @@ select {
   overflow-x: scroll;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
+  scroll-padding-inline: 0;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
   background: var(--color-line);
-}
-
-.stage-scroll {
-  scroll-snap-type: x proximity;
 }
 
 .stage-head-scroll {
@@ -1094,12 +1091,6 @@ select {
 .stage-head-scroll::-webkit-scrollbar,
 .stage-scroll::-webkit-scrollbar {
   display: none;
-}
-
-.stage-head-scroll.is-dragging,
-.stage-scroll.is-dragging {
-  cursor: grabbing;
-  user-select: none;
 }
 
 .stage-track {
@@ -1140,6 +1131,7 @@ select {
 .stage-lane {
   min-width: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: normal;
   background:
     repeating-linear-gradient(
       to bottom,
@@ -1161,8 +1153,8 @@ select {
   justify-content: center;
   gap: 0;
   padding: 8px 11px;
-  border: 1px solid rgba(92, 173, 236, 0.55);
-  background: rgba(92, 173, 236, 0.16);
+  border: 1px solid #5cadec;
+  background: #10283a;
   color: var(--color-white);
   text-decoration: none;
   cursor: default;
@@ -1170,13 +1162,13 @@ select {
 }
 
 .run-slot.featured {
-  border-color: rgba(187, 106, 193, 0.75);
-  background: linear-gradient(135deg, rgba(187, 106, 193, 0.28), rgba(92, 173, 236, 0.12));
+  border-color: #bb6ac1;
+  background: linear-gradient(135deg, #3a1f3d, #14263a);
 }
 
 .run-slot.calm {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: #5a5a5a;
+  background: #181818;
 }
 
 .run-slot time {
