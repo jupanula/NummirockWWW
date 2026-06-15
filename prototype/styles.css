@@ -1079,9 +1079,10 @@ select {
 }
 
 .stage-track {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(var(--stage-count), minmax(0, 1fr));
   gap: 1px;
-  width: max-content;
+  width: 100%;
   min-width: 100%;
   background: var(--color-line);
 }
@@ -1116,7 +1117,6 @@ select {
 }
 
 .stage-lane {
-  flex: 0 0 var(--stage-col-width);
   min-width: 0;
   display: grid;
   grid-template-rows: var(--schedule-stage-head-height) calc(var(--board-minutes) * var(--minute-size));
@@ -1754,6 +1754,21 @@ select {
     --minute-size: 1.58px;
     margin-right: calc(var(--gutter) * -1);
     border-right: 0;
+  }
+
+  .stage-scroll {
+    overflow-x: scroll;
+  }
+
+  .stage-track {
+    display: inline-flex;
+    width: auto;
+    min-width: max-content;
+  }
+
+  .stage-lane {
+    width: var(--stage-col-width);
+    flex: 0 0 var(--stage-col-width);
   }
 
   .stage-head {
